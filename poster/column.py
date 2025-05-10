@@ -53,8 +53,8 @@ alpha = np.clip((fade_range - dist) / fade_range * 255, 0, 255).astype(np.uint8)
 # RGBA出力
 rgba = np.zeros((height, width, 4), dtype=np.uint8)
 rgba[..., 0] = 180     # R
-rgba[..., 1] = 180     # G
-rgba[..., 2] = 255     # B
+rgba[..., 1] = 255     # G
+rgba[..., 2] = 180     # B
 rgba[..., 3] = alpha   # A
 
 # PIL画像に変換して上下反転
