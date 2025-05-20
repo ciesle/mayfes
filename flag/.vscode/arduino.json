@@ -1,0 +1,4 @@
+{
+    "sketch": "flag.ino",
+    "board": "arduino:avr:uno"
+}
