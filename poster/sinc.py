@@ -1,6 +1,5 @@
 import numpy as np
 import matplotlib.pyplot as plt
-import matplotlib.cm as cm
 
 # 描画用パラメータ
 num_sincs = 5                 # 配置する sinc 関数の数
@@ -10,13 +9,12 @@ x = np.linspace(-10, 10, 5000)  # x軸の範囲と解像度
 # 複数の sinc 関数を重ねる
 y = np.zeros_like(x)
 centers = [-7,0,7]
+for c in centers:
+    y += np.sinc((x - c) * 4)
 
-# カラーマップ（青系）から色を取得
-colors = cm.Blues(np.linspace(0.4, 0.9, num_sincs))  # 明るすぎず濃すぎない範囲
 # グラフ描画
 plt.figure(figsize=(10, 4))
-for c, color in zip(centers, colors):
-    plt.plot(x, np.sinc((x - c) * 4), linewidth=4, color=color)
+plt.plot(x, y, linewidth=4)
 
 # 軸の設定：目盛りは非表示にするが枠線は表示
 plt.xticks([])
