@@ -2,19 +2,21 @@ import numpy as np
 from PIL import Image, ImageDraw
 
 # 元のサイズ
-base_width, base_height = 800, 600
+base_width, base_height = 800, 800
 scale = 5
 width, height = base_width * scale, base_height * scale
 
 # 正弦波のパラメータ
 amplitude = 30 * scale
-offset = 300 * scale
+offset1 = 650 * scale
+offset2 = 250 * scale
+offset3 = 720 * scale
 carrier_freq = 8
 mod_freq = 2
 mod_index = 2
 
 # 固定グラデーションの高さ（px）
-y_fixed = 220 * scale
+y_fixed = 550 * scale
 border = 200
 minimum = 50
 
@@ -28,15 +30,15 @@ y_wave_array2 = []
 for x in range(width):
     x_norm = x / width  # 正規化
 
-    y_wave = int(offset + amplitude * np.sin(
+    y_wave = int(offset1 + amplitude * np.sin(
         2 * np.pi * carrier_freq * x_norm + mod_index * np.sin(2 * np.pi * mod_freq * x_norm)
     ))
 
-    y_wave_array1.append(int(offset + 10 * scale * np.sin(
+    y_wave_array1.append(int(offset2 + 10 * scale * np.sin(
         2 * np.pi * carrier_freq * x_norm + 3 * np.sin(2 * np.pi * 1 * x_norm)
     ) + 20 * scale * np.sin(2 * np.pi * 3 * x_norm)))
 
-    y_wave_array2.append(int(offset + 10 * scale * np.sin(
+    y_wave_array2.append(int(offset3 + 10 * scale * np.sin(
         2 * np.pi * carrier_freq * x_norm + 1 * np.sin(2 * np.pi * 2 * x_norm)
     ) + 10 * scale * np.sin(2 * np.pi * 2 * x_norm)))
 
@@ -72,4 +74,4 @@ line1 = [(x, max(0, y_wave_array1[x] - 120 * scale)) for x in range(width)]
 draw.line(line1, fill=(150, 150, 250), width=2 * scale)
 
 # 保存
-img.save('background.png')
+img.save('title.png')
