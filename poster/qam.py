@@ -3,38 +3,42 @@ import numpy as np
 import matplotlib.pyplot as plt
 import japanize_matplotlib
 
-# Gray符号（2ビット）を4レベルに対応（-3, -1, 1, 3 に割り当て）
-gray_2bit = ['00', '01', '11', '10']  # 2ビットGray符号
-amplitudes = [-3, -1, 1, 3]           # 振幅レベル（I, Qとも）
+# Gray符号（2ビット）を4点QAMに対応
+gray_2bit = ['00', '01', '11', '10']
+amplitudes = [-1, 1]
 
 # グリッド点を生成
 I = []
 Q = []
 labels = []
 
-# Q軸は画像で上に行くほどビットが小さくなるので、逆順にする
-for q in reversed(range(4)):
-    for i in range(4):
+for q in reversed(range(2)):
+    for i in range(2):
         i_val = amplitudes[i]
         q_val = amplitudes[q]
         I.append(i_val)
         Q.append(q_val)
-        label = gray_2bit[q] + gray_2bit[i]  # Qが上位ビット, Iが下位ビット
+        label = gray_2bit[q * 2 + i]
         labels.append(label)
 
 # プロット
 plt.figure(figsize=(6, 6))
-plt.scatter(I, Q, color='black', edgecolors='black')
+plt.scatter(I, Q, color='black', edgecolors='black', s=108)  # 点を3倍に
 for i in range(len(I)):
-    plt.text(I[i] + 0.15, Q[i] + 0.15, labels[i], fontsize=9)
+    plt.text(I[i] + 0.1, Q[i] + 0.1, labels[i], fontsize=30)  # 文字サイズを3倍に
 
-plt.xlabel('I 軸 (sin波)')
-plt.ylabel('Q 軸 (cos波)')
+# 軸ラベルを消す
+plt.xlabel('')
+plt.ylabel('')
+
+# グリッドと補助線
 plt.grid(True)
-plt.axhline(0, color='black', lw=0.5)
-plt.axvline(0, color='black', lw=0.5)
-plt.xlim(-4, 4)
-plt.ylim(-4, 4)
+plt.axhline(0, color='black', lw=2)  # 軸を太く
+plt.axvline(0, color='black', lw=2)  # 軸を太く
+plt.xticks(np.arange(-2, 3, 1), fontsize=20)  # 数字を大きく
+plt.yticks(np.arange(-2, 3, 1), fontsize=20)  # 数字を大きく
+plt.xlim(-1.5, 1.5)
+plt.ylim(-1.5, 1.5)
 plt.gca().set_aspect('equal')
 plt.tight_layout()
-plt.savefig('qam.png')
+plt.savefig('4qam_large.png')
